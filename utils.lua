@@ -30,8 +30,10 @@ end
 
 -- Crop based on the image center & scale
 function utils.crop(img, center, scale, res)
+    torch.save('tmp/orgimg.t7', img)
     local l1 = utils.transform({1,1}, center, scale, res, true)
     local l2 = utils.transform({res,res}, center, scale, res, true)
+    print(l1, l2)
 
     local pad = math.floor(torch.norm((l1 - l2):float())/2 - (l2[1]-l1[1])/2)
     
@@ -49,7 +51,8 @@ function utils.crop(img, center, scale, res)
     local oldY = torch.Tensor({math.max(1, l1[2]+1), math.min(l2[2], height)})
 
     newImg:sub(1,newDim[1],newY[1],newY[2],newX[1],newX[2]):copy(img:sub(1,newDim[1],oldY[1],oldY[2],oldX[1],oldX[2]))
-
+    -- torch.save('tmp/newImg.t7', newImg)
+    -- print(newImg:size())
     newImg = image.scale(newImg,res,res)
     return newImg
 end
@@ -63,6 +66,9 @@ function utils.getPreds(heatmaps, center, scale)
     preds[{{}, {}, 1}]:apply(function(x) return (x - 1) % heatmaps:size(4) + 1 end)
     preds[{{}, {}, 2}]:add(-1):div(heatmaps:size(3)):floor():add(1)
 
+    print(idx)
+    print(preds)
+
     for i = 1,preds:size(1) do        
         for j = 1,preds:size(2) do
             local hm = heatmaps[{i,j,{}}]
@@ -74,6 +80,7 @@ function utils.getPreds(heatmaps, center, scale)
         end
     end
     preds:add(-0.5)
+    print(preds)
 
     -- Get the coordinates in the original space
     local preds_orig = torch.zeros(preds:size())
@@ -82,6 +89,7 @@ function utils.getPreds(heatmaps, center, scale)
             preds_orig[i][j] = utils.transform(preds[i][j],center,scale,heatmaps:size(3),true)
         end
     end
+    print(preds_orig)
     return preds, preds_orig
 end
 

@@ -28,21 +28,23 @@ optnet.optimizeMemory(model, torch.zeros(1,3,256,256):cuda(), optimize_opts)
 
 if opts.mode == 'eval' then xlua.progress(0,#fileLists) end
 for i = 1, #fileLists do
-	fileLists[i].image = 'dataset/mpii/images/'..fileLists[i].image
+	image_fname = 'dataset/mpii/images/'..fileLists[i].image
 	
-	local img = image.load(fileLists[i].image)
+	local img = image.load(image_fname)
 	local originalSize = img:size()
 
 	img = utils.crop(img, fileLists[i].center, fileLists[i].scale, 256)
 	img = img:cuda():view(1,3,256,256)
-	
+	-- torch.save('tmp/' ..fileLists[i].image..'.t7' , img)
 	output:copy(model:forward(img))
-	output:add(utils.flip(utils.shuffleLR(model:forward(utils.flip(img)))))
+	-- output:add(utils.flip(utils.shuffleLR(model:forward(utils.flip(img)))))
+	-- torch.save('tmp/output.t7', output)
+	-- torch.save('tmp/net.t7', model)
 
 	local preds_hm, preds_img = utils.getPreds(output, fileLists[i].center, fileLists[i].scale)
 	
 	if opts.mode == 'demo' then
-		utils.plot(fileLists[i].image,preds_img:view(16,2),torch.Tensor{originalSize[3],originalSize[2]})
+		utils.plot(image_fname,preds_img:view(16,2),torch.Tensor{originalSize[3],originalSize[2]})
 		io.read() -- Wait for user input
 	end
 	
@@ -50,6 +52,7 @@ for i = 1, #fileLists do
 		predictions[i] = preds_img:clone()
 		xlua.progress(i, #fileLists)
 	end
+
 end
 
 if opts.mode == 'demo' then gnuplot.closeall() end

@@ -1,0 +1,967 @@
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> (7) -> (8) -> (9) -> (10) -> (11) -> (12) -> (13) -> (14) -> output]
+  (1): cudnn.SpatialConvolution(3 -> 64, 7x7, 2,2, 3,3)
+  (2): nn.SpatialBatchNormalization (4D) (64)
+  (3): cudnn.ReLU
+  (4): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+        |      (1): nn.SpatialBatchNormalization (4D) (64)
+        |      (2): nn.Sequential {
+        |        [input -> (1) -> output]
+        |        (1): bnn.Binary
+        |      }
+        |      (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+        |      (4): nn.ConcatTable {
+        |        input
+        |          |`-> (1): nn.Identity
+        |           `-> (2): nn.Sequential {
+        |                 [input -> (1) -> (2) -> (3) -> output]
+        |                 (1): nn.Sequential {
+        |                   [input -> (1) -> (2) -> (3) -> output]
+        |                   (1): nn.SpatialBatchNormalization (4D) (64)
+        |                   (2): nn.Sequential {
+        |                     [input -> (1) -> output]
+        |                     (1): bnn.Binary
+        |                   }
+        |                   (3): bnn.SpatialConvolution(64 -> 32, 3x3, 1,1, 1,1) without bias
+        |                 }
+        |                 (2): nn.ConcatTable {
+        |                   input
+        |                     |`-> (1): nn.Identity
+        |                      `-> (2): nn.Sequential {
+        |                            [input -> (1) -> (2) -> (3) -> output]
+        |                            (1): nn.SpatialBatchNormalization (4D) (32)
+        |                            (2): nn.Sequential {
+        |                              [input -> (1) -> output]
+        |                              (1): bnn.Binary
+        |                            }
+        |                            (3): bnn.SpatialConvolution(32 -> 32, 3x3, 1,1, 1,1) without bias
+        |                          }
+        |                      ... -> output
+        |                 }
+        |                 (3): nn.JoinTable
+        |               }
+        |           ... -> output
+        |      }
+        |      (5): nn.JoinTable
+        |    }
+         `-> (2): nn.Sequential {
+               [input -> (1) -> (2) -> (3) -> output]
+               (1): nn.SpatialBatchNormalization (4D) (64)
+               (2): nn.Sequential {
+                 [input -> (1) -> output]
+                 (1): bnn.Binary
+               }
+               (3): bnn.SpatialConvolution(64 -> 128, 1x1) without bias
+             }
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (5): cudnn.SpatialMaxPooling(2x2, 2,2)
+  (6): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+        |      (1): nn.SpatialBatchNormalization (4D) (128)
+        |      (2): nn.Sequential {
+        |        [input -> (1) -> output]
+        |        (1): bnn.Binary
+        |      }
+        |      (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+        |      (4): nn.ConcatTable {
+        |        input
+        |          |`-> (1): nn.Identity
+        |           `-> (2): nn.Sequential {
+        |                 [input -> (1) -> (2) -> (3) -> output]
+        |                 (1): nn.Sequential {
+        |                   [input -> (1) -> (2) -> (3) -> output]
+        |                   (1): nn.SpatialBatchNormalization (4D) (64)
+        |                   (2): nn.Sequential {
+        |                     [input -> (1) -> output]
+        |                     (1): bnn.Binary
+        |                   }
+        |                   (3): bnn.SpatialConvolution(64 -> 32, 3x3, 1,1, 1,1) without bias
+        |                 }
+        |                 (2): nn.ConcatTable {
+        |                   input
+        |                     |`-> (1): nn.Identity
+        |                      `-> (2): nn.Sequential {
+        |                            [input -> (1) -> (2) -> (3) -> output]
+        |                            (1): nn.SpatialBatchNormalization (4D) (32)
+        |                            (2): nn.Sequential {
+        |                              [input -> (1) -> output]
+        |                              (1): bnn.Binary
+        |                            }
+        |                            (3): bnn.SpatialConvolution(32 -> 32, 3x3, 1,1, 1,1) without bias
+        |                          }
+        |                      ... -> output
+        |                 }
+        |                 (3): nn.JoinTable
+        |               }
+        |           ... -> output
+        |      }
+        |      (5): nn.JoinTable
+        |    }
+         `-> (2): nn.Identity
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (7): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+        |      (1): nn.SpatialBatchNormalization (4D) (128)
+        |      (2): nn.Sequential {
+        |        [input -> (1) -> output]
+        |        (1): bnn.Binary
+        |      }
+        |      (3): bnn.SpatialConvolution(128 -> 128, 3x3, 1,1, 1,1) without bias
+        |      (4): nn.ConcatTable {
+        |        input
+        |          |`-> (1): nn.Identity
+        |           `-> (2): nn.Sequential {
+        |                 [input -> (1) -> (2) -> (3) -> output]
+        |                 (1): nn.Sequential {
+        |                   [input -> (1) -> (2) -> (3) -> output]
+        |                   (1): nn.SpatialBatchNormalization (4D) (128)
+        |                   (2): nn.Sequential {
+        |                     [input -> (1) -> output]
+        |                     (1): bnn.Binary
+        |                   }
+        |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+        |                 }
+        |                 (2): nn.ConcatTable {
+        |                   input
+        |                     |`-> (1): nn.Identity
+        |                      `-> (2): nn.Sequential {
+        |                            [input -> (1) -> (2) -> (3) -> output]
+        |                            (1): nn.SpatialBatchNormalization (4D) (64)
+        |                            (2): nn.Sequential {
+        |                              [input -> (1) -> output]
+        |                              (1): bnn.Binary
+        |                            }
+        |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+        |                          }
+        |                      ... -> output
+        |                 }
+        |                 (3): nn.JoinTable
+        |               }
+        |           ... -> output
+        |      }
+        |      (5): nn.JoinTable
+        |    }
+         `-> (2): nn.Sequential {
+               [input -> (1) -> (2) -> (3) -> output]
+               (1): nn.SpatialBatchNormalization (4D) (128)
+               (2): nn.Sequential {
+                 [input -> (1) -> output]
+                 (1): bnn.Binary
+               }
+               (3): bnn.SpatialConvolution(128 -> 256, 1x1) without bias
+             }
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (8): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> output]
+        |      (1): nn.Sequential {
+        |        [input -> (1) -> (2) -> output]
+        |        (1): nn.ConcatTable {
+        |          input
+        |            |`-> (1): nn.Sequential {
+        |            |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+        |            |      (1): nn.SpatialBatchNormalization (4D) (256)
+        |            |      (2): nn.Sequential {
+        |            |        [input -> (1) -> output]
+        |            |        (1): bnn.Binary
+        |            |      }
+        |            |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+        |            |      (4): nn.ConcatTable {
+        |            |        input
+        |            |          |`-> (1): nn.Identity
+        |            |           `-> (2): nn.Sequential {
+        |            |                 [input -> (1) -> (2) -> (3) -> output]
+        |            |                 (1): nn.Sequential {
+        |            |                   [input -> (1) -> (2) -> (3) -> output]
+        |            |                   (1): nn.SpatialBatchNormalization (4D) (128)
+        |            |                   (2): nn.Sequential {
+        |            |                     [input -> (1) -> output]
+        |            |                     (1): bnn.Binary
+        |            |                   }
+        |            |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+        |            |                 }
+        |            |                 (2): nn.ConcatTable {
+        |            |                   input
+        |            |                     |`-> (1): nn.Identity
+        |            |                      `-> (2): nn.Sequential {
+        |            |                            [input -> (1) -> (2) -> (3) -> output]
+        |            |                            (1): nn.SpatialBatchNormalization (4D) (64)
+        |            |                            (2): nn.Sequential {
+        |            |                              [input -> (1) -> output]
+        |            |                              (1): bnn.Binary
+        |            |                            }
+        |            |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+        |            |                          }
+        |            |                      ... -> output
+        |            |                 }
+        |            |                 (3): nn.JoinTable
+        |            |               }
+        |            |           ... -> output
+        |            |      }
+        |            |      (5): nn.JoinTable
+        |            |    }
+        |             `-> (2): nn.Identity
+        |             ... -> output
+        |        }
+        |        (2): nn.CAddTable
+        |      }
+        |    }
+         `-> (2): nn.Sequential {
+               [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+               (1): cudnn.SpatialMaxPooling(2x2, 2,2)
+               (2): nn.Sequential {
+                 [input -> (1) -> (2) -> output]
+                 (1): nn.ConcatTable {
+                   input
+                     |`-> (1): nn.Sequential {
+                     |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                     |      (1): nn.SpatialBatchNormalization (4D) (256)
+                     |      (2): nn.Sequential {
+                     |        [input -> (1) -> output]
+                     |        (1): bnn.Binary
+                     |      }
+                     |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                     |      (4): nn.ConcatTable {
+                     |        input
+                     |          |`-> (1): nn.Identity
+                     |           `-> (2): nn.Sequential {
+                     |                 [input -> (1) -> (2) -> (3) -> output]
+                     |                 (1): nn.Sequential {
+                     |                   [input -> (1) -> (2) -> (3) -> output]
+                     |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                     |                   (2): nn.Sequential {
+                     |                     [input -> (1) -> output]
+                     |                     (1): bnn.Binary
+                     |                   }
+                     |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                     |                 }
+                     |                 (2): nn.ConcatTable {
+                     |                   input
+                     |                     |`-> (1): nn.Identity
+                     |                      `-> (2): nn.Sequential {
+                     |                            [input -> (1) -> (2) -> (3) -> output]
+                     |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                     |                            (2): nn.Sequential {
+                     |                              [input -> (1) -> output]
+                     |                              (1): bnn.Binary
+                     |                            }
+                     |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                     |                          }
+                     |                      ... -> output
+                     |                 }
+                     |                 (3): nn.JoinTable
+                     |               }
+                     |           ... -> output
+                     |      }
+                     |      (5): nn.JoinTable
+                     |    }
+                      `-> (2): nn.Identity
+                      ... -> output
+                 }
+                 (2): nn.CAddTable
+               }
+               (3): nn.Sequential {
+                 [input -> (1) -> (2) -> output]
+                 (1): nn.ConcatTable {
+                   input
+                     |`-> (1): nn.Sequential {
+                     |      [input -> (1) -> output]
+                     |      (1): nn.Sequential {
+                     |        [input -> (1) -> (2) -> output]
+                     |        (1): nn.ConcatTable {
+                     |          input
+                     |            |`-> (1): nn.Sequential {
+                     |            |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                     |            |      (1): nn.SpatialBatchNormalization (4D) (256)
+                     |            |      (2): nn.Sequential {
+                     |            |        [input -> (1) -> output]
+                     |            |        (1): bnn.Binary
+                     |            |      }
+                     |            |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                     |            |      (4): nn.ConcatTable {
+                     |            |        input
+                     |            |          |`-> (1): nn.Identity
+                     |            |           `-> (2): nn.Sequential {
+                     |            |                 [input -> (1) -> (2) -> (3) -> output]
+                     |            |                 (1): nn.Sequential {
+                     |            |                   [input -> (1) -> (2) -> (3) -> output]
+                     |            |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                     |            |                   (2): nn.Sequential {
+                     |            |                     [input -> (1) -> output]
+                     |            |                     (1): bnn.Binary
+                     |            |                   }
+                     |            |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                     |            |                 }
+                     |            |                 (2): nn.ConcatTable {
+                     |            |                   input
+                     |            |                     |`-> (1): nn.Identity
+                     |            |                      `-> (2): nn.Sequential {
+                     |            |                            [input -> (1) -> (2) -> (3) -> output]
+                     |            |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                     |            |                            (2): nn.Sequential {
+                     |            |                              [input -> (1) -> output]
+                     |            |                              (1): bnn.Binary
+                     |            |                            }
+                     |            |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                     |            |                          }
+                     |            |                      ... -> output
+                     |            |                 }
+                     |            |                 (3): nn.JoinTable
+                     |            |               }
+                     |            |           ... -> output
+                     |            |      }
+                     |            |      (5): nn.JoinTable
+                     |            |    }
+                     |             `-> (2): nn.Identity
+                     |             ... -> output
+                     |        }
+                     |        (2): nn.CAddTable
+                     |      }
+                     |    }
+                      `-> (2): nn.Sequential {
+                            [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                            (1): cudnn.SpatialMaxPooling(2x2, 2,2)
+                            (2): nn.Sequential {
+                              [input -> (1) -> (2) -> output]
+                              (1): nn.ConcatTable {
+                                input
+                                  |`-> (1): nn.Sequential {
+                                  |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                  |      (1): nn.SpatialBatchNormalization (4D) (256)
+                                  |      (2): nn.Sequential {
+                                  |        [input -> (1) -> output]
+                                  |        (1): bnn.Binary
+                                  |      }
+                                  |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                                  |      (4): nn.ConcatTable {
+                                  |        input
+                                  |          |`-> (1): nn.Identity
+                                  |           `-> (2): nn.Sequential {
+                                  |                 [input -> (1) -> (2) -> (3) -> output]
+                                  |                 (1): nn.Sequential {
+                                  |                   [input -> (1) -> (2) -> (3) -> output]
+                                  |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                                  |                   (2): nn.Sequential {
+                                  |                     [input -> (1) -> output]
+                                  |                     (1): bnn.Binary
+                                  |                   }
+                                  |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                                  |                 }
+                                  |                 (2): nn.ConcatTable {
+                                  |                   input
+                                  |                     |`-> (1): nn.Identity
+                                  |                      `-> (2): nn.Sequential {
+                                  |                            [input -> (1) -> (2) -> (3) -> output]
+                                  |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                                  |                            (2): nn.Sequential {
+                                  |                              [input -> (1) -> output]
+                                  |                              (1): bnn.Binary
+                                  |                            }
+                                  |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                                  |                          }
+                                  |                      ... -> output
+                                  |                 }
+                                  |                 (3): nn.JoinTable
+                                  |               }
+                                  |           ... -> output
+                                  |      }
+                                  |      (5): nn.JoinTable
+                                  |    }
+                                   `-> (2): nn.Identity
+                                   ... -> output
+                              }
+                              (2): nn.CAddTable
+                            }
+                            (3): nn.Sequential {
+                              [input -> (1) -> (2) -> output]
+                              (1): nn.ConcatTable {
+                                input
+                                  |`-> (1): nn.Sequential {
+                                  |      [input -> (1) -> output]
+                                  |      (1): nn.Sequential {
+                                  |        [input -> (1) -> (2) -> output]
+                                  |        (1): nn.ConcatTable {
+                                  |          input
+                                  |            |`-> (1): nn.Sequential {
+                                  |            |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                  |            |      (1): nn.SpatialBatchNormalization (4D) (256)
+                                  |            |      (2): nn.Sequential {
+                                  |            |        [input -> (1) -> output]
+                                  |            |        (1): bnn.Binary
+                                  |            |      }
+                                  |            |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                                  |            |      (4): nn.ConcatTable {
+                                  |            |        input
+                                  |            |          |`-> (1): nn.Identity
+                                  |            |           `-> (2): nn.Sequential {
+                                  |            |                 [input -> (1) -> (2) -> (3) -> output]
+                                  |            |                 (1): nn.Sequential {
+                                  |            |                   [input -> (1) -> (2) -> (3) -> output]
+                                  |            |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                                  |            |                   (2): nn.Sequential {
+                                  |            |                     [input -> (1) -> output]
+                                  |            |                     (1): bnn.Binary
+                                  |            |                   }
+                                  |            |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                                  |            |                 }
+                                  |            |                 (2): nn.ConcatTable {
+                                  |            |                   input
+                                  |            |                     |`-> (1): nn.Identity
+                                  |            |                      `-> (2): nn.Sequential {
+                                  |            |                            [input -> (1) -> (2) -> (3) -> output]
+                                  |            |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                                  |            |                            (2): nn.Sequential {
+                                  |            |                              [input -> (1) -> output]
+                                  |            |                              (1): bnn.Binary
+                                  |            |                            }
+                                  |            |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                                  |            |                          }
+                                  |            |                      ... -> output
+                                  |            |                 }
+                                  |            |                 (3): nn.JoinTable
+                                  |            |               }
+                                  |            |           ... -> output
+                                  |            |      }
+                                  |            |      (5): nn.JoinTable
+                                  |            |    }
+                                  |             `-> (2): nn.Identity
+                                  |             ... -> output
+                                  |        }
+                                  |        (2): nn.CAddTable
+                                  |      }
+                                  |    }
+                                   `-> (2): nn.Sequential {
+                                         [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                         (1): cudnn.SpatialMaxPooling(2x2, 2,2)
+                                         (2): nn.Sequential {
+                                           [input -> (1) -> (2) -> output]
+                                           (1): nn.ConcatTable {
+                                             input
+                                               |`-> (1): nn.Sequential {
+                                               |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                               |      (1): nn.SpatialBatchNormalization (4D) (256)
+                                               |      (2): nn.Sequential {
+                                               |        [input -> (1) -> output]
+                                               |        (1): bnn.Binary
+                                               |      }
+                                               |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                                               |      (4): nn.ConcatTable {
+                                               |        input
+                                               |          |`-> (1): nn.Identity
+                                               |           `-> (2): nn.Sequential {
+                                               |                 [input -> (1) -> (2) -> (3) -> output]
+                                               |                 (1): nn.Sequential {
+                                               |                   [input -> (1) -> (2) -> (3) -> output]
+                                               |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                                               |                   (2): nn.Sequential {
+                                               |                     [input -> (1) -> output]
+                                               |                     (1): bnn.Binary
+                                               |                   }
+                                               |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                                               |                 }
+                                               |                 (2): nn.ConcatTable {
+                                               |                   input
+                                               |                     |`-> (1): nn.Identity
+                                               |                      `-> (2): nn.Sequential {
+                                               |                            [input -> (1) -> (2) -> (3) -> output]
+                                               |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                                               |                            (2): nn.Sequential {
+                                               |                              [input -> (1) -> output]
+                                               |                              (1): bnn.Binary
+                                               |                            }
+                                               |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                                               |                          }
+                                               |                      ... -> output
+                                               |                 }
+                                               |                 (3): nn.JoinTable
+                                               |               }
+                                               |           ... -> output
+                                               |      }
+                                               |      (5): nn.JoinTable
+                                               |    }
+                                                `-> (2): nn.Identity
+                                                ... -> output
+                                           }
+                                           (2): nn.CAddTable
+                                         }
+                                         (3): nn.Sequential {
+                                           [input -> (1) -> (2) -> output]
+                                           (1): nn.ConcatTable {
+                                             input
+                                               |`-> (1): nn.Sequential {
+                                               |      [input -> (1) -> output]
+                                               |      (1): nn.Sequential {
+                                               |        [input -> (1) -> (2) -> output]
+                                               |        (1): nn.ConcatTable {
+                                               |          input
+                                               |            |`-> (1): nn.Sequential {
+                                               |            |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                               |            |      (1): nn.SpatialBatchNormalization (4D) (256)
+                                               |            |      (2): nn.Sequential {
+                                               |            |        [input -> (1) -> output]
+                                               |            |        (1): bnn.Binary
+                                               |            |      }
+                                               |            |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                                               |            |      (4): nn.ConcatTable {
+                                               |            |        input
+                                               |            |          |`-> (1): nn.Identity
+                                               |            |           `-> (2): nn.Sequential {
+                                               |            |                 [input -> (1) -> (2) -> (3) -> output]
+                                               |            |                 (1): nn.Sequential {
+                                               |            |                   [input -> (1) -> (2) -> (3) -> output]
+                                               |            |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                                               |            |                   (2): nn.Sequential {
+                                               |            |                     [input -> (1) -> output]
+                                               |            |                     (1): bnn.Binary
+                                               |            |                   }
+                                               |            |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                                               |            |                 }
+                                               |            |                 (2): nn.ConcatTable {
+                                               |            |                   input
+                                               |            |                     |`-> (1): nn.Identity
+                                               |            |                      `-> (2): nn.Sequential {
+                                               |            |                            [input -> (1) -> (2) -> (3) -> output]
+                                               |            |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                                               |            |                            (2): nn.Sequential {
+                                               |            |                              [input -> (1) -> output]
+                                               |            |                              (1): bnn.Binary
+                                               |            |                            }
+                                               |            |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                                               |            |                          }
+                                               |            |                      ... -> output
+                                               |            |                 }
+                                               |            |                 (3): nn.JoinTable
+                                               |            |               }
+                                               |            |           ... -> output
+                                               |            |      }
+                                               |            |      (5): nn.JoinTable
+                                               |            |    }
+                                               |             `-> (2): nn.Identity
+                                               |             ... -> output
+                                               |        }
+                                               |        (2): nn.CAddTable
+                                               |      }
+                                               |    }
+                                                `-> (2): nn.Sequential {
+                                                      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                                      (1): cudnn.SpatialMaxPooling(2x2, 2,2)
+                                                      (2): nn.Sequential {
+                                                        [input -> (1) -> (2) -> output]
+                                                        (1): nn.ConcatTable {
+                                                          input
+                                                            |`-> (1): nn.Sequential {
+                                                            |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                                            |      (1): nn.SpatialBatchNormalization (4D) (256)
+                                                            |      (2): nn.Sequential {
+                                                            |        [input -> (1) -> output]
+                                                            |        (1): bnn.Binary
+                                                            |      }
+                                                            |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                                                            |      (4): nn.ConcatTable {
+                                                            |        input
+                                                            |          |`-> (1): nn.Identity
+                                                            |           `-> (2): nn.Sequential {
+                                                            |                 [input -> (1) -> (2) -> (3) -> output]
+                                                            |                 (1): nn.Sequential {
+                                                            |                   [input -> (1) -> (2) -> (3) -> output]
+                                                            |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                                                            |                   (2): nn.Sequential {
+                                                            |                     [input -> (1) -> output]
+                                                            |                     (1): bnn.Binary
+                                                            |                   }
+                                                            |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                                                            |                 }
+                                                            |                 (2): nn.ConcatTable {
+                                                            |                   input
+                                                            |                     |`-> (1): nn.Identity
+                                                            |                      `-> (2): nn.Sequential {
+                                                            |                            [input -> (1) -> (2) -> (3) -> output]
+                                                            |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                                                            |                            (2): nn.Sequential {
+                                                            |                              [input -> (1) -> output]
+                                                            |                              (1): bnn.Binary
+                                                            |                            }
+                                                            |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                                                            |                          }
+                                                            |                      ... -> output
+                                                            |                 }
+                                                            |                 (3): nn.JoinTable
+                                                            |               }
+                                                            |           ... -> output
+                                                            |      }
+                                                            |      (5): nn.JoinTable
+                                                            |    }
+                                                             `-> (2): nn.Identity
+                                                             ... -> output
+                                                        }
+                                                        (2): nn.CAddTable
+                                                      }
+                                                      (3): nn.Sequential {
+                                                        [input -> (1) -> (2) -> output]
+                                                        (1): nn.ConcatTable {
+                                                          input
+                                                            |`-> (1): nn.Sequential {
+                                                            |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                                            |      (1): nn.SpatialBatchNormalization (4D) (256)
+                                                            |      (2): nn.Sequential {
+                                                            |        [input -> (1) -> output]
+                                                            |        (1): bnn.Binary
+                                                            |      }
+                                                            |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                                                            |      (4): nn.ConcatTable {
+                                                            |        input
+                                                            |          |`-> (1): nn.Identity
+                                                            |           `-> (2): nn.Sequential {
+                                                            |                 [input -> (1) -> (2) -> (3) -> output]
+                                                            |                 (1): nn.Sequential {
+                                                            |                   [input -> (1) -> (2) -> (3) -> output]
+                                                            |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                                                            |                   (2): nn.Sequential {
+                                                            |                     [input -> (1) -> output]
+                                                            |                     (1): bnn.Binary
+                                                            |                   }
+                                                            |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                                                            |                 }
+                                                            |                 (2): nn.ConcatTable {
+                                                            |                   input
+                                                            |                     |`-> (1): nn.Identity
+                                                            |                      `-> (2): nn.Sequential {
+                                                            |                            [input -> (1) -> (2) -> (3) -> output]
+                                                            |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                                                            |                            (2): nn.Sequential {
+                                                            |                              [input -> (1) -> output]
+                                                            |                              (1): bnn.Binary
+                                                            |                            }
+                                                            |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                                                            |                          }
+                                                            |                      ... -> output
+                                                            |                 }
+                                                            |                 (3): nn.JoinTable
+                                                            |               }
+                                                            |           ... -> output
+                                                            |      }
+                                                            |      (5): nn.JoinTable
+                                                            |    }
+                                                             `-> (2): nn.Identity
+                                                             ... -> output
+                                                        }
+                                                        (2): nn.CAddTable
+                                                      }
+                                                      (4): nn.Sequential {
+                                                        [input -> (1) -> (2) -> output]
+                                                        (1): nn.ConcatTable {
+                                                          input
+                                                            |`-> (1): nn.Sequential {
+                                                            |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                                            |      (1): nn.SpatialBatchNormalization (4D) (256)
+                                                            |      (2): nn.Sequential {
+                                                            |        [input -> (1) -> output]
+                                                            |        (1): bnn.Binary
+                                                            |      }
+                                                            |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                                                            |      (4): nn.ConcatTable {
+                                                            |        input
+                                                            |          |`-> (1): nn.Identity
+                                                            |           `-> (2): nn.Sequential {
+                                                            |                 [input -> (1) -> (2) -> (3) -> output]
+                                                            |                 (1): nn.Sequential {
+                                                            |                   [input -> (1) -> (2) -> (3) -> output]
+                                                            |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                                                            |                   (2): nn.Sequential {
+                                                            |                     [input -> (1) -> output]
+                                                            |                     (1): bnn.Binary
+                                                            |                   }
+                                                            |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                                                            |                 }
+                                                            |                 (2): nn.ConcatTable {
+                                                            |                   input
+                                                            |                     |`-> (1): nn.Identity
+                                                            |                      `-> (2): nn.Sequential {
+                                                            |                            [input -> (1) -> (2) -> (3) -> output]
+                                                            |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                                                            |                            (2): nn.Sequential {
+                                                            |                              [input -> (1) -> output]
+                                                            |                              (1): bnn.Binary
+                                                            |                            }
+                                                            |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                                                            |                          }
+                                                            |                      ... -> output
+                                                            |                 }
+                                                            |                 (3): nn.JoinTable
+                                                            |               }
+                                                            |           ... -> output
+                                                            |      }
+                                                            |      (5): nn.JoinTable
+                                                            |    }
+                                                             `-> (2): nn.Identity
+                                                             ... -> output
+                                                        }
+                                                        (2): nn.CAddTable
+                                                      }
+                                                      (5): nn.SpatialUpSamplingNearest
+                                                    }
+                                                ... -> output
+                                           }
+                                           (2): nn.CAddTable
+                                         }
+                                         (4): nn.Sequential {
+                                           [input -> (1) -> (2) -> output]
+                                           (1): nn.ConcatTable {
+                                             input
+                                               |`-> (1): nn.Sequential {
+                                               |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                               |      (1): nn.SpatialBatchNormalization (4D) (256)
+                                               |      (2): nn.Sequential {
+                                               |        [input -> (1) -> output]
+                                               |        (1): bnn.Binary
+                                               |      }
+                                               |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                                               |      (4): nn.ConcatTable {
+                                               |        input
+                                               |          |`-> (1): nn.Identity
+                                               |           `-> (2): nn.Sequential {
+                                               |                 [input -> (1) -> (2) -> (3) -> output]
+                                               |                 (1): nn.Sequential {
+                                               |                   [input -> (1) -> (2) -> (3) -> output]
+                                               |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                                               |                   (2): nn.Sequential {
+                                               |                     [input -> (1) -> output]
+                                               |                     (1): bnn.Binary
+                                               |                   }
+                                               |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                                               |                 }
+                                               |                 (2): nn.ConcatTable {
+                                               |                   input
+                                               |                     |`-> (1): nn.Identity
+                                               |                      `-> (2): nn.Sequential {
+                                               |                            [input -> (1) -> (2) -> (3) -> output]
+                                               |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                                               |                            (2): nn.Sequential {
+                                               |                              [input -> (1) -> output]
+                                               |                              (1): bnn.Binary
+                                               |                            }
+                                               |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                                               |                          }
+                                               |                      ... -> output
+                                               |                 }
+                                               |                 (3): nn.JoinTable
+                                               |               }
+                                               |           ... -> output
+                                               |      }
+                                               |      (5): nn.JoinTable
+                                               |    }
+                                                `-> (2): nn.Identity
+                                                ... -> output
+                                           }
+                                           (2): nn.CAddTable
+                                         }
+                                         (5): nn.SpatialUpSamplingNearest
+                                       }
+                                   ... -> output
+                              }
+                              (2): nn.CAddTable
+                            }
+                            (4): nn.Sequential {
+                              [input -> (1) -> (2) -> output]
+                              (1): nn.ConcatTable {
+                                input
+                                  |`-> (1): nn.Sequential {
+                                  |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                                  |      (1): nn.SpatialBatchNormalization (4D) (256)
+                                  |      (2): nn.Sequential {
+                                  |        [input -> (1) -> output]
+                                  |        (1): bnn.Binary
+                                  |      }
+                                  |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                                  |      (4): nn.ConcatTable {
+                                  |        input
+                                  |          |`-> (1): nn.Identity
+                                  |           `-> (2): nn.Sequential {
+                                  |                 [input -> (1) -> (2) -> (3) -> output]
+                                  |                 (1): nn.Sequential {
+                                  |                   [input -> (1) -> (2) -> (3) -> output]
+                                  |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                                  |                   (2): nn.Sequential {
+                                  |                     [input -> (1) -> output]
+                                  |                     (1): bnn.Binary
+                                  |                   }
+                                  |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                                  |                 }
+                                  |                 (2): nn.ConcatTable {
+                                  |                   input
+                                  |                     |`-> (1): nn.Identity
+                                  |                      `-> (2): nn.Sequential {
+                                  |                            [input -> (1) -> (2) -> (3) -> output]
+                                  |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                                  |                            (2): nn.Sequential {
+                                  |                              [input -> (1) -> output]
+                                  |                              (1): bnn.Binary
+                                  |                            }
+                                  |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                                  |                          }
+                                  |                      ... -> output
+                                  |                 }
+                                  |                 (3): nn.JoinTable
+                                  |               }
+                                  |           ... -> output
+                                  |      }
+                                  |      (5): nn.JoinTable
+                                  |    }
+                                   `-> (2): nn.Identity
+                                   ... -> output
+                              }
+                              (2): nn.CAddTable
+                            }
+                            (5): nn.SpatialUpSamplingNearest
+                          }
+                      ... -> output
+                 }
+                 (2): nn.CAddTable
+               }
+               (4): nn.Sequential {
+                 [input -> (1) -> (2) -> output]
+                 (1): nn.ConcatTable {
+                   input
+                     |`-> (1): nn.Sequential {
+                     |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+                     |      (1): nn.SpatialBatchNormalization (4D) (256)
+                     |      (2): nn.Sequential {
+                     |        [input -> (1) -> output]
+                     |        (1): bnn.Binary
+                     |      }
+                     |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+                     |      (4): nn.ConcatTable {
+                     |        input
+                     |          |`-> (1): nn.Identity
+                     |           `-> (2): nn.Sequential {
+                     |                 [input -> (1) -> (2) -> (3) -> output]
+                     |                 (1): nn.Sequential {
+                     |                   [input -> (1) -> (2) -> (3) -> output]
+                     |                   (1): nn.SpatialBatchNormalization (4D) (128)
+                     |                   (2): nn.Sequential {
+                     |                     [input -> (1) -> output]
+                     |                     (1): bnn.Binary
+                     |                   }
+                     |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+                     |                 }
+                     |                 (2): nn.ConcatTable {
+                     |                   input
+                     |                     |`-> (1): nn.Identity
+                     |                      `-> (2): nn.Sequential {
+                     |                            [input -> (1) -> (2) -> (3) -> output]
+                     |                            (1): nn.SpatialBatchNormalization (4D) (64)
+                     |                            (2): nn.Sequential {
+                     |                              [input -> (1) -> output]
+                     |                              (1): bnn.Binary
+                     |                            }
+                     |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+                     |                          }
+                     |                      ... -> output
+                     |                 }
+                     |                 (3): nn.JoinTable
+                     |               }
+                     |           ... -> output
+                     |      }
+                     |      (5): nn.JoinTable
+                     |    }
+                      `-> (2): nn.Identity
+                      ... -> output
+                 }
+                 (2): nn.CAddTable
+               }
+               (5): nn.SpatialUpSamplingNearest
+             }
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (9): nn.Sequential {
+    [input -> (1) -> (2) -> output]
+    (1): nn.ConcatTable {
+      input
+        |`-> (1): nn.Sequential {
+        |      [input -> (1) -> (2) -> (3) -> (4) -> (5) -> output]
+        |      (1): nn.SpatialBatchNormalization (4D) (256)
+        |      (2): nn.Sequential {
+        |        [input -> (1) -> output]
+        |        (1): bnn.Binary
+        |      }
+        |      (3): bnn.SpatialConvolution(256 -> 128, 3x3, 1,1, 1,1) without bias
+        |      (4): nn.ConcatTable {
+        |        input
+        |          |`-> (1): nn.Identity
+        |           `-> (2): nn.Sequential {
+        |                 [input -> (1) -> (2) -> (3) -> output]
+        |                 (1): nn.Sequential {
+        |                   [input -> (1) -> (2) -> (3) -> output]
+        |                   (1): nn.SpatialBatchNormalization (4D) (128)
+        |                   (2): nn.Sequential {
+        |                     [input -> (1) -> output]
+        |                     (1): bnn.Binary
+        |                   }
+        |                   (3): bnn.SpatialConvolution(128 -> 64, 3x3, 1,1, 1,1) without bias
+        |                 }
+        |                 (2): nn.ConcatTable {
+        |                   input
+        |                     |`-> (1): nn.Identity
+        |                      `-> (2): nn.Sequential {
+        |                            [input -> (1) -> (2) -> (3) -> output]
+        |                            (1): nn.SpatialBatchNormalization (4D) (64)
+        |                            (2): nn.Sequential {
+        |                              [input -> (1) -> output]
+        |                              (1): bnn.Binary
+        |                            }
+        |                            (3): bnn.SpatialConvolution(64 -> 64, 3x3, 1,1, 1,1) without bias
+        |                          }
+        |                      ... -> output
+        |                 }
+        |                 (3): nn.JoinTable
+        |               }
+        |           ... -> output
+        |      }
+        |      (5): nn.JoinTable
+        |    }
+         `-> (2): nn.Identity
+         ... -> output
+    }
+    (2): nn.CAddTable
+  }
+  (10): nn.Sequential {
+    [input -> (1) -> (2) -> (3) -> output]
+    (1): nn.SpatialBatchNormalization (4D) (256)
+    (2): nn.Sequential {
+      [input -> (1) -> output]
+      (1): bnn.Binary
+    }
+    (3): bnn.SpatialConvolution(256 -> 256, 1x1) without bias
+  }
+  (11): cudnn.SpatialBatchNormalization
+  (12): cudnn.ReLU
+  (13): cudnn.SpatialConvolution(256 -> 16, 1x1)
+  (14): cudnn.Sigmoid
+}
